@@ -8,6 +8,18 @@ object Utils {
         return parts?.getOrNull(0) to parts?.getOrNull(1)
     }
 
+    fun toInitials(firstName: String?, lastName: String?): String? =
+        listOf(firstName, lastName)
+            .filter { !it.isNullOrBlank() }
+            .let{
+                if(!it.isEmpty())
+                    it.joinToString (separator = "")
+                        { it?.get(0)?.toUpperCase().toString() }
+                else
+                    null
+            }
+
+
 }
 
 

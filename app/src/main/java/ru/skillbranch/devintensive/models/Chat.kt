@@ -1,4 +1,6 @@
 package ru.skillbranch.devintensive.models
 
-class Chat {
+data class Chat (
+    var id: String
+) {
 }

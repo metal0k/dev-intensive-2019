@@ -8,3 +8,6 @@ fun String.truncate(length: Int = 16): String = let {
 
 }
 
+fun String.stripHtml() = this
+    .replace(Regex("</?.+?>|&.+?;"), "")
+    .replace(Regex("\\s{2,}"), " ")

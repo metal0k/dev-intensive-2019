@@ -11,10 +11,10 @@ object Utils {
     fun toInitials(firstName: String?, lastName: String?): String? =
         listOf(firstName, lastName)
             .filter { !it.isNullOrBlank() }
-            .let{
-                if(!it.isEmpty())
-                    it.joinToString (separator = "")
-                        { it?.get(0)?.toUpperCase().toString() }
+            .let {
+                if (!it.isEmpty())
+                    it.joinToString(separator = "")
+                    { it?.get(0)?.toUpperCase().toString() }
                 else
                     null
             }

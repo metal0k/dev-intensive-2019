@@ -28,4 +28,20 @@ data class User(
             )
         }
     }
+
+    class Builder() {
+        private var mId: String = ""
+        private val user: User = User("", null, null, null)
+        fun id(value: String) = this.apply { mId = value }
+        fun firstName(value: String) = this.apply { user.firstName = value }
+        fun lastName(value: String) = this.apply { user.lastName = value }
+        fun avatar(value: String) = this.apply { user.avatar = value }
+        fun rating(value: Int) = this.apply { user.rating = value }
+        fun respect(value: Int) = this.apply { user.respect = value }
+        fun lastVisit(value: Date) = this.apply { user.lastVisit = value }
+        fun isOnline(value: Boolean) = this.apply { user.isOnline = value }
+
+        fun build(): User = user.copy(id = mId);
+
+    }
 }

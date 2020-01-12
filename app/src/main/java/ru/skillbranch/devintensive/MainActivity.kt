@@ -6,12 +6,19 @@ import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.KeyEvent
+import android.view.KeyEvent.ACTION_UP
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
+import ru.skillbranch.devintensive.extensions.hideKeyboard
 import ru.skillbranch.devintensive.extensions.log_d
 import ru.skillbranch.devintensive.models.Bender
+import kotlin.math.log
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEditorActionListener {
     lateinit var bender: Bender;
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +29,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         applyState()
 //        tvQuestion.text = bender.askQuestion()
         ivSend.setOnClickListener(this)
+        et_message.setOnEditorActionListener(this)
         log_d("onCreate")
     }
 
@@ -38,10 +46,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         log_d("onRestart")
     }
 
-    override fun onClick(v: View?) {
-        var (question, color) = bender.listenAnswer(et_message.text.toString())
+    fun processAnswer(answer: String) {
+        log_d("processAnswer: $answer")
+        var (question, color) = bender.listenAnswer(answer)
         applyState(question)
+//        hideKeyboard()
+    }
 
+    override fun onClick(v: View?) {
+        processAnswer(et_message.text.toString())
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -78,6 +91,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
         log_d("onResume")
+    }
+
+    override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+        if (actionId == EditorInfo.IME_ACTION_DONE /*|| ( event?.action == KeyEvent.ACTION_UP && event?.keyCode == KeyEvent.KEYCODE_ENTER)*/) {
+            log_d("onEditorAction: $actionId, $event")
+            log_d("Enter or Done pressed")
+            processAnswer(et_message.text.toString())
+            hideKeyboard()
+            return true
+        }
+        return false
     }
 }
 

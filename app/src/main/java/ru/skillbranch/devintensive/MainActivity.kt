@@ -1,22 +1,17 @@
 package ru.skillbranch.devintensive
 
 import android.graphics.Color
-import android.graphics.ColorFilter
 import android.graphics.PorterDuff
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.KeyEvent
-import android.view.KeyEvent.ACTION_UP
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.skillbranch.devintensive.extensions.hideKeyboard
 import ru.skillbranch.devintensive.extensions.log_d
 import ru.skillbranch.devintensive.models.Bender
-import kotlin.math.log
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEditorActionListener {
     lateinit var bender: Bender;
@@ -28,16 +23,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
         bender.restoreState(savedInstanceState)
         applyState()
 //        tvQuestion.text = bender.askQuestion()
-        ivSend.setOnClickListener(this)
+        iv_send.setOnClickListener(this)
         et_message.setOnEditorActionListener(this)
         log_d("onCreate")
     }
 
     fun applyState(text: String? = null) {
         log_d("applyState: $text")
-        tvQuestion.text = text ?: bender.askQuestion()
+        tv_text.text = text ?: bender.askQuestion()
         val (r,g,b) = bender.status.color
-        ivBender.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY)
+        iv_bender.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY)
         log_d("right answers: ${bender.question.answers}")
     }
 

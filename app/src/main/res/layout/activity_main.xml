@@ -34,7 +34,6 @@
             android:layout_weight="1"
             android:lines="1"
             android:maxLines="1"
-            android:inputType="text"
             android:hint="Введите текст"
             android:imeOptions="actionDone"
             android:textColor="@color/color_gray_light"

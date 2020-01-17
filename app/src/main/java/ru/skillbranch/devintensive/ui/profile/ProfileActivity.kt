@@ -81,6 +81,7 @@ class ProfileActivity : AppCompatActivity() {
             for ((k,v) in viewFields)
                 v.text = it?.get(k)?.toString() ?: ""
         }
+        tv_nick_name.text = profile?.nickName
     }
 
     private fun setCurrentMode(editMode: Boolean) {

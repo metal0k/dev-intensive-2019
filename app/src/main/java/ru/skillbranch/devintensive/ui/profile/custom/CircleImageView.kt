@@ -39,7 +39,7 @@ class CircleImageView @JvmOverloads constructor(
                 R.styleable.CircleImageView_cv_borderWidth,
                 DEFAULT_BORDER_WIDTH
             )
-            log("borderColor: $borderColor, borderWidth: $borderWidth")
+//            log("borderColor: $borderColor, borderWidth: $borderWidth")
             a.recycle()
         }
     }

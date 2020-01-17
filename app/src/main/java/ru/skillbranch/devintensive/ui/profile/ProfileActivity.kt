@@ -70,7 +70,7 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun updateTheme(theme: Int?) {
-        log("updateTheme")
+        log("updateTheme from Observer")
         delegate.localNightMode = theme ?: AppCompatDelegate.MODE_NIGHT_NO
 
     }

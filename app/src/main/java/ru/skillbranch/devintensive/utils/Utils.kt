@@ -1,5 +1,6 @@
 package ru.skillbranch.devintensive.utils
 
+import ru.skillbranch.devintensive.extensions.log
 import java.util.*
 
 object Utils {
@@ -66,7 +67,21 @@ object Utils {
 
             }
     }
+
+    fun validateGithubURL(url: String): Boolean {
+        val invalidParts = listOf<String>("enterprise","features","topics",
+                            "collections","trending","events",
+                            "marketplace","pricing","nonprofit",
+                            "customer-stories","security","login","join")
+        val valRE = Regex("(?:https://)?(?:www\\.)?github\\.com/([\\w_-]+)")
+        val matches = valRE.matchEntire(url)
+        return  matches?.let{
+            !invalidParts.contains(matches.groupValues[1].toLowerCase())
+        }?: false
+    }
 }
+
+
 
 
 

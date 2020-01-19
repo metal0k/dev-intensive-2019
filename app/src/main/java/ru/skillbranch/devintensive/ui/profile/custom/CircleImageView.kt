@@ -3,14 +3,12 @@ package ru.skillbranch.devintensive.ui.profile.custom
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.ImageView
 import androidx.annotation.ColorRes
 import androidx.annotation.Dimension
 import ru.skillbranch.devintensive.R
-import ru.skillbranch.devintensive.extensions.log
 
 class CircleImageView @JvmOverloads constructor(
     context: Context,
@@ -94,8 +92,6 @@ class CircleImageView @JvmOverloads constructor(
     }
 
     private fun drawRoundImage(canvas: Canvas) {
-//        var b: Bitmap = (drawable as BitmapDrawable).bitmap
-//        val bitmap = b.copy(Bitmap.Config.ARGB_8888, true)
         val bitmap: Bitmap? = getBitmapFromDrawable(drawable)
         if (bitmap == null)
             return
@@ -106,15 +102,18 @@ class CircleImageView @JvmOverloads constructor(
         scaledBitmap = Bitmap.createScaledBitmap(bitmap, width, height, false)
 
         /* Cutting the outer of the circle */
-        val shader: Shader
-        shader = BitmapShader(scaledBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
+        val circShader: Shader
+        circShader = BitmapShader(scaledBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
 
         val rect = RectF()
         rect.set(0f, 0f, width.toFloat(), height.toFloat())
 
         val imagePaint = Paint()
-        imagePaint.isAntiAlias = true
-        imagePaint.shader = shader
+        imagePaint.apply {
+            isAntiAlias = true
+            shader = circShader
+            isDither = true
+        }
         canvas.drawRoundRect(rect, width.toFloat(), height.toFloat(), imagePaint)
     }
 

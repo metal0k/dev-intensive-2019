@@ -94,8 +94,7 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun updateTheme(theme: Int?) {
         log("updateTheme from Observer")
-        delegate.localNightMode = theme ?: AppCompatDelegate.MODE_NIGHT_NO
-
+        delegate.setLocalNightMode( theme ?: AppCompatDelegate.MODE_NIGHT_NO )
     }
 
     private fun updateUI(profile: Profile?) {

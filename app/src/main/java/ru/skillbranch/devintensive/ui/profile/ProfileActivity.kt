@@ -1,8 +1,7 @@
 package ru.skillbranch.devintensive.ui.profile
 
-import android.graphics.ColorFilter
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
+import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -89,6 +88,22 @@ class ProfileActivity : AppCompatActivity() {
                 v.text = it?.get(k)?.toString() ?: ""
         }
         tv_nick_name.text = profile?.nickName
+        val initials = Utils.toInitials(profile?.firstName, profile?.lastName)
+        initials?.also {
+            val attrs = theme?.obtainStyledAttributes(IntArray(1, {R.attr.colorAccent}))
+            val bgcolor = attrs?.getColor(0, 0) ?: 0
+            attrs?.recycle()
+            val bitmap =
+                Utils.makeTextBitmap( initials,
+                                      resources.getDimension(R.dimen.avatar_round_size).toInt(),
+                                      resources.getDimension(R.dimen.avatar_round_size).toInt(),
+                                      resources.getDimension(R.dimen.font_avatar_32),
+                                      Color.WHITE,
+                                      bgcolor
+                                     )
+            iv_avatar.setImageDrawable(BitmapDrawable(resources, bitmap))
+        } ?: iv_avatar.setImageDrawable(resources.getDrawable(R.drawable.avatar_default, theme))
+
     }
 
     private fun setCurrentMode(editMode: Boolean) {

@@ -1,7 +1,12 @@
 package ru.skillbranch.devintensive.utils
 
-import ru.skillbranch.devintensive.extensions.log
-import java.util.*
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Paint.Align
+import android.graphics.RectF
+import android.graphics.Typeface
+import android.text.TextPaint
+
 
 object Utils {
     fun parseFullName(fullName: String?): Pair<String?, String?> {
@@ -78,6 +83,31 @@ object Utils {
         return  matches?.let{
             !invalidParts.contains(matches.groupValues[1].toLowerCase())
         }?: false
+    }
+
+    fun makeTextBitmap(text: String, width: Int, height: Int, textSize: Float, textColor: Int, backgroundColor: Int ): Bitmap {
+        val bitmap = Bitmap.createBitmap(
+            width,
+            height,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        canvas.drawColor(backgroundColor)
+        val textPaint = TextPaint()
+        textPaint.apply {
+            color = textColor
+            typeface = Typeface.SANS_SERIF
+            isAntiAlias = true
+            isDither = true
+            textAlign = Align.CENTER
+            setTextSize(textSize)
+        }
+        val textHeight = textPaint.descent() - textPaint.ascent()
+        val textOffset = textHeight / 2 - textPaint.descent()
+        val bounds = RectF(0f, 0f, width.toFloat(), height.toFloat())
+        canvas.drawText(text, bounds.centerX(), bounds.centerY() + textOffset, textPaint)
+        return bitmap
+
     }
 }
 

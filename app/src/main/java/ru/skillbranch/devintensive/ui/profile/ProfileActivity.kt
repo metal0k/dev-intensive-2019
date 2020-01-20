@@ -73,10 +73,10 @@ class ProfileActivity : AppCompatActivity() {
 
         et_repository.addTextChangedListener(object: TextWatcher{
             override fun afterTextChanged(text: Editable?) {
-                wr_repository.error = text?.toString()?.let {
-                    if (it == "" || Utils.validateGithubURL(it)) "" else getString(R.string.msg_repository_error)
-                } ?: ""
-
+                wr_repository.isErrorEnabled = text?.toString()?.let {
+                    (it == "" || Utils.validateGithubURL(it)).not()
+                } ?: false
+                wr_repository.error =  if(wr_repository.isErrorEnabled) getString(R.string.msg_repository_error) else null
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
@@ -107,10 +107,10 @@ class ProfileActivity : AppCompatActivity() {
         val initials = Utils.toInitials(profile?.firstName, profile?.lastName)
         initials?.also {
             val attrs = theme?.obtainStyledAttributes(IntArray(1, {R.attr.colorAccent}))
-            val bgcolor = attrs?.getColor(0, 0) ?: 0
+            val bgcolor = attrs?.getColor(0, 0) ?: getColor(R.color.color_accent)
             attrs?.recycle()
             val bitmap =
-                Utils.makeTextBitmap( initials,
+                Utils.makeTextBitmap( it,
                                       resources.getDimension(R.dimen.avatar_round_size).toInt(),
                                       resources.getDimension(R.dimen.avatar_round_size).toInt(),
                                       resources.getDimension(R.dimen.font_avatar_32),
@@ -159,6 +159,7 @@ class ProfileActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        outState.putBoolean(IS_EDIT_MODE, isEditMode)
         log("onSaveInstanceState")
     }
 

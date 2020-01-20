@@ -12,7 +12,12 @@ data class Profile(
     val respect : Int = 0
 
 ) {
-    val nickName : String = Utils.transliteration("$firstName $lastName", "_")
+    val nickName : String
+        get() {
+            val joined = listOf(firstName, lastName).filterNot { it.isBlank() }.joinToString (separator= "_" )
+            return Utils.transliteration(joined, "_")
+        }
+
     val rank : String = "Junior Android Developer"
 
     fun toMap(): Map<String, Any> = mapOf(

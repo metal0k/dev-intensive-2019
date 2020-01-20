@@ -78,7 +78,7 @@ object Utils {
                             "collections","trending","events",
                             "marketplace","pricing","nonprofit",
                             "customer-stories","security","login","join")
-        val valRE = Regex("(?:https://)?(?:www\\.)?github\\.com/([\\w_-]+)")
+        val valRE = Regex("(?:https://)?(?:www\\.)?github\\.com/(?![\\W-])(?!\\w+-{2,})([a-zA-Z0-9-]+)(?<!-)/?")
         val matches = valRE.matchEntire(url)
         return  matches?.let{
             !invalidParts.contains(matches.groupValues[1].toLowerCase())

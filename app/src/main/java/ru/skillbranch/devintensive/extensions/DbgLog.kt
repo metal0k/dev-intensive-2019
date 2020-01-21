@@ -6,7 +6,7 @@ const val LOG_TAG = "M_"
 
 
 fun Any.log(message: String, level:Int = Log.DEBUG) {
-    val tag = "$LOG_TAG${this::class.simpleName}"
+    val tag = "$LOG_TAG${this::class.java.canonicalName}"
     Log.println(level, tag, message)
 }
 

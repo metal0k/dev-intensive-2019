@@ -1,6 +1,4 @@
-package ru.skillbranch.devintensive.models.data
-
-import ru.skillbranch.devintensive.utils.Utils
+package ru.skillbranch.devintensive.utils
 
 data class Profile(
 

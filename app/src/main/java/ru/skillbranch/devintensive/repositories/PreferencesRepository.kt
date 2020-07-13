@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatDelegate
 //import androidx.preference.PreferenceManager
 import android.preference.PreferenceManager
 import ru.skillbranch.devintensive.App
-import ru.skillbranch.devintensive.models.data.Profile
+import ru.skillbranch.devintensive.utils.Profile
 
 object PreferencesRepository {
 

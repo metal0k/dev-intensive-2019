@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatDelegate
 //import androidx.preference.PreferenceManager
 import android.preference.PreferenceManager
 import ru.skillbranch.devintensive.App
-import ru.skillbranch.devintensive.models.Profile
+import ru.skillbranch.devintensive.models.data.Profile
 
 object PreferencesRepository {
 
@@ -21,14 +21,15 @@ object PreferencesRepository {
         PreferenceManager.getDefaultSharedPreferences(App.getContext())
     }
 
-    fun getProfile(): Profile = Profile(
-        prefs.getString( FIRST_NAME, "")!!,
-        prefs.getString( LAST_NAME, "")!!,
-        prefs.getString( ABOUT, "")!!,
-        prefs.getString( REPOSITORY, "")!!,
-        prefs.getInt( RATING, 0),
-        prefs.getInt( RESPECT, 0)
-    )
+    fun getProfile(): Profile =
+        Profile(
+            prefs.getString(FIRST_NAME, "")!!,
+            prefs.getString(LAST_NAME, "")!!,
+            prefs.getString(ABOUT, "")!!,
+            prefs.getString(REPOSITORY, "")!!,
+            prefs.getInt(RATING, 0),
+            prefs.getInt(RESPECT, 0)
+        )
 
     fun saveAppTheme(theme: Int) {
         putValue(APP_THEME to theme)

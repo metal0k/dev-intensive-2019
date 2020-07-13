@@ -79,3 +79,14 @@ fun Date.humanizeDiff(date: Date = Date()): String = let {
     else
         result
 }
+
+fun Date.shortFormat(): String? {
+    val pattern = if (this.isSameDay(Date())) "HH:mm" else "dd.MM.yy"
+    val dateFormat = SimpleDateFormat(pattern, Locale("ru"))
+    return dateFormat.format(this)
+}
+
+
+fun Date.isSameDay(date: Date): Boolean {
+    return this.time / DateUtils.DAY_IN_MILLIS == date.time / DateUtils.DAY_IN_MILLIS;
+}

@@ -17,12 +17,9 @@ object Utils {
     fun toInitials(firstName: String?, lastName: String?): String? =
         listOf(firstName, lastName)
             .filter { !it.isNullOrBlank() }
+            .map{ s -> s?.get(0)?.toUpperCase() }
             .let {
-                if (!it.isEmpty())
-                    it.joinToString(separator = "")
-                    { it?.get(0)?.toUpperCase().toString() }
-                else
-                    null
+                it.joinToString(separator = "")
             }
 
     fun transliteration(payload: String, divider: String = " "): String {
@@ -108,8 +105,8 @@ object Utils {
         val bounds = RectF(0f, 0f, width.toFloat(), height.toFloat())
         canvas.drawText(text, bounds.centerX(), bounds.centerY() + textOffset, textPaint)
         return bitmap
-
     }
+
 }
 
 

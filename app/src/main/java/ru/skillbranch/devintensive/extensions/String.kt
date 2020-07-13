@@ -11,3 +11,8 @@ fun String.truncate(length: Int = 16): String = let {
 fun String.stripHtml() = this
     .replace(Regex("</?.+?>|&.+?;"), "")
     .replace(Regex("\\s{2,}"), " ")
+
+
+fun String.toIntDef(defValue: Int = 0): Int {
+    return this.toIntOrNull() ?: defValue
+}

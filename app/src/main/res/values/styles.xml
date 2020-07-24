@@ -14,7 +14,7 @@
 
     <style name="ChatItem.Username">
         <item name="android:textSize">14sp</item>
-        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="ChatItem.Username.Light">

@@ -1,11 +1,8 @@
 package ru.skillbranch.devintensive.models.data
 
 import androidx.annotation.VisibleForTesting
-import ru.skillbranch.devintensive.extensions.shortFormat
-import ru.skillbranch.devintensive.extensions.truncate
+import ru.skillbranch.devintensive.extensions.messageShort
 import ru.skillbranch.devintensive.models.BaseMessage
-import ru.skillbranch.devintensive.models.ImageMessage
-import ru.skillbranch.devintensive.models.TextMessage
 import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
 
@@ -18,20 +15,16 @@ data class Chat(
 ) {
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun unreadableMessageCount(): Int {
-        return messages.count{ !it.isReaded }
+        return messages.count { !it.isReaded }
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun lastMessageDate(): Date? {
-        return  messages.lastOrNull()?.date
+        return messages.lastOrNull()?.date
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun lastMessageShort(): Pair<String?, String?> = when(val lastMessage = messages.lastOrNull()){
-       is TextMessage -> lastMessage.text?.trim()?.truncate(64) to lastMessage.from.firstName
-       is ImageMessage ->  null to lastMessage.from.firstName
-        else -> null to null
-    }
+    fun lastMessageShort(): Pair<String?, String?> = messages.lastOrNull().messageShort()
 
     private fun isSingle(): Boolean = members.size == 1
 
@@ -45,7 +38,7 @@ data class Chat(
                 "${user.firstName ?: ""} ${user.lastName ?: ""}",
                 lastMessageShort().first,
                 unreadableMessageCount(),
-                lastMessageDate()?.shortFormat(),
+                lastMessageDate(),
                 user.isOnline
             )
         } else { //GROUP
@@ -56,16 +49,38 @@ data class Chat(
                 title,
                 lastMessageShort().first,
                 messages.size,
-                lastMessageDate()?.shortFormat(),
+                lastMessageDate(),
                 false,
                 ChatType.GROUP,
                 lastMessageShort().second
             )
         }
     }
+
+    companion object ArchiveFactory {
+        const val ARCHIVE_ID = "-1"
+        fun createArchiveItem(
+            lastMessageShort: String,
+            messageCount: Int,
+            lastMessageDate: Date?,
+            lastMessageAuthor: String
+
+        ): ChatItem = ChatItem(
+            ARCHIVE_ID,
+            null,
+            "",
+            "",
+            lastMessageShort,
+            messageCount,
+            lastMessageDate,
+            false,
+            ChatType.ARCHIVE,
+            lastMessageAuthor
+        )
+    }
 }
 
-enum class ChatType{
+enum class ChatType {
     SINGLE,
     GROUP,
     ARCHIVE

@@ -70,7 +70,7 @@ class ChatItemTouchHelperCallback(
 
     private fun drawBackground(canvas: Canvas, itemView: View, dX: Float) {
         with(bgRect) {
-            left = itemView.left.toFloat() - dX
+            left = dX
             top = itemView.top.toFloat()
             right = itemView.right.toFloat()
             bottom = itemView.bottom.toFloat()

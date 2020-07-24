@@ -25,7 +25,7 @@ class MainViewModel: ViewModel() {
             .flatMap { it.messages }
             .sortedBy { it.date }
 
-        val lastMessageArchive = archiveMessages.lastOrNull()
+        val lastMessageArchive = archiveMessages.lastOrNull(){!it.isReaded}
         val (lastMessageText, lastMessageAuthor) = lastMessageArchive.messageShort()
         chats
             .filter { !it.isArchived }

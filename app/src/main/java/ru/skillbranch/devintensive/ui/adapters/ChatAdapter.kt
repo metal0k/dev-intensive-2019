@@ -74,13 +74,13 @@ class ChatAdapter(val listener : (ChatItem)->Unit): RecyclerView.Adapter<ChatAda
         items = data
         diffResult.dispatchUpdatesTo(this)
     }
-    abstract class ChatItemViewHolder(containerView: View): RecyclerView.ViewHolder(containerView),
+    abstract inner class ChatItemViewHolder(containerView: View): RecyclerView.ViewHolder(containerView),
         LayoutContainer {
         abstract fun bind(item: ChatItem, listener: (ChatItem) -> Unit)
     }
 
 
-    class SingleViewHolder(override val containerView: View):
+    inner class SingleViewHolder(override val containerView: View):
         ChatItemViewHolder(containerView),
         ChatItemTouchHelperCallback.ItemTouchViewHolder {
 
@@ -123,7 +123,7 @@ class ChatAdapter(val listener : (ChatItem)->Unit): RecyclerView.Adapter<ChatAda
 
     }
 
-    class GroupViewHolder(override val containerView: View):
+    inner class GroupViewHolder(override val containerView: View):
         ChatItemViewHolder(containerView),
         ChatItemTouchHelperCallback.ItemTouchViewHolder {
 
@@ -160,7 +160,7 @@ class ChatAdapter(val listener : (ChatItem)->Unit): RecyclerView.Adapter<ChatAda
 
     }
 
-    class ArchiveViewHolder(override val containerView: View):
+    inner class ArchiveViewHolder(override val containerView: View):
         ChatItemViewHolder(containerView){
 
         override fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {

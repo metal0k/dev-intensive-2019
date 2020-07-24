@@ -69,7 +69,7 @@ data class Chat(
             ARCHIVE_ID,
             null,
             "",
-            "",
+            "Архив чатов",
             lastMessageShort,
             messageCount,
             lastMessageDate,

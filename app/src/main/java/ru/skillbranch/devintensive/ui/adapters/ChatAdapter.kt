@@ -164,7 +164,7 @@ class ChatAdapter(val listener : (ChatItem)->Unit): RecyclerView.Adapter<ChatAda
         ChatItemViewHolder(containerView){
 
         override fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {
-            tv_title_archive.text = itemView.resources.getString(R.string.title_archive)
+            tv_title_archive.text = item.title
             with(tv_message_author_archive) {
                 visibility = if (item.author != null) android.view.View.VISIBLE else android.view.View.GONE
                 text = item.author
